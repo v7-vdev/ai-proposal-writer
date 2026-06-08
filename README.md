@@ -77,16 +77,9 @@ To test the application quickly, you can use the following sample data in the fr
 8. Once deployed, copy the Render URL (e.g., `https://ai-proposal-backend.onrender.com`).
 
 ### Deploying the Frontend on Vercel
-1. Before deploying, update the `API_URL` in `frontend/script.js` to point to your new Render backend URL instead of `localhost:8000`.
-   ```javascript
-   const API_URL = 'https://your-render-app-url.onrender.com/generate-proposal';
-   ```
-2. Go to [Vercel](https://vercel.com) and create a **New Project**.
-3. Import your GitHub repository.
-4. Set the **Root Directory** to `frontend`.
-5. Leave the framework preset as `Other` (since it's plain HTML/JS).
-6. Click **Deploy**.
-7. Your frontend is now live! Ensure your backend CORS settings (in `main.py`) allow the Vercel domain if you want to restrict origins in production.
+1. For a detailed walkthrough on Vercel deployment, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+2. The frontend is already pre-configured in `frontend/script.js` to point to the production backend.
+3. Import your GitHub repository to Vercel and set the root directory to `frontend`.
 
 ---
 
