@@ -45,18 +45,21 @@ A modern SaaS MVP that helps freelancers and agencies generate professional clie
    ```
 3. Access the frontend (e.g., `http://localhost:5500`).
 
+## 🎯 Accuracy & Quality Improvements
+
+The proposal generation logic has been significantly enhanced:
+- **Strict Budget Adherence**: The AI uses the exact user-provided budget and ensures the pricing breakdown sums up correctly.
+- **Natural Integration**: Client and project names are woven naturally into the text.
+- **No Placeholders**: Strict prompt constraints prevent the use of `[Insert Date]` style placeholders.
+- **Validation Script**: Added `backend/test_accuracy.py` to programmatically verify proposal integrity.
+
 ---
 
-## 🧪 Sample Test Data
-
-To test the application quickly, you can use the following sample data in the frontend form:
-
-- **Client Name**: TechNova Solutions
-- **Project Name**: E-Commerce Platform Overhaul
-- **Project Description**: We need to redesign our existing e-commerce platform to improve conversion rates, optimize mobile responsiveness, and integrate a new Stripe payment gateway. The current site is built on legacy tech and is too slow.
-- **Budget**: $12,500
-- **Timeline**: 6 Weeks
-- **Additional Notes**: We need weekly milestone check-ins. Standard 50% upfront payment, 50% on completion.
+## 🧪 Testing Accuracy
+You can run the internal accuracy validator to see how it checks proposals:
+```bash
+python backend/test_accuracy.py
+```
 
 ---
 

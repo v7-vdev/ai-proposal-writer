@@ -43,16 +43,24 @@ async def generate_proposal(request: ProposalRequest):
         )
 
     prompt = f"""
-You are an expert freelance/agency proposal writer. Write a professional, compelling, and tailored client proposal based on the following details:
+You are a world-class freelance and agency proposal writer. Your goal is to write a highly professional, compelling, and tailored proposal for {request.client_name} regarding the "{request.project_name}" project.
 
-Client Name: {request.client_name}
-Project Name: {request.project_name}
-Project Description: {request.project_description}
-Budget: {request.budget}
-Timeline: {request.timeline}
-Additional Notes: {request.additional_notes}
+### INPUT DATA:
+- Client Name: {request.client_name}
+- Project Name: {request.project_name}
+- Project Description: {request.project_description}
+- TOTAL BUDGET: {request.budget}
+- Timeline: {request.timeline}
+- Additional Notes: {request.additional_notes}
 
-The proposal MUST include the following sections formatted exactly as headers:
+### STRICT CONSTRAINTS:
+1. **BUDGET INTEGRITY**: You MUST use the exact total budget provided: {request.budget}. NEVER invent a different number.
+2. **PRICING ACCURACY**: The "Pricing Section" MUST contain a detailed breakdown. Every line item in the breakdown MUST sum exactly to the total budget of {request.budget}. Double-check your math.
+3. **NO PLACEHOLDERS**: Do NOT use placeholder text like "[Insert Date]", "[Company Name]", or "[Your Name]". Use the provided data or leave it professional and generic without brackets.
+4. **NATURAL INTEGRATION**: Mention {request.client_name} and "{request.project_name}" naturally throughout the text to make it feel custom-made.
+5. **SPECIFICITY**: Tailor the "Scope of Work" and "Deliverables" specifically to the project description: {request.project_description}.
+
+### REQUIRED SECTIONS (Markdown Headers):
 1. Executive Summary
 2. Scope of Work
 3. Deliverables
@@ -61,8 +69,7 @@ The proposal MUST include the following sections formatted exactly as headers:
 6. Terms & Conditions
 7. Next Steps
 
-Use clear, professional language. Format the output in Markdown so it is easy to read. 
-Do not include any introductory conversation; output only the final proposal starting directly with the title or first header.
+Format the entire output in clean Markdown. Do not include any pre-text, post-text, or conversational filler. Start immediately with the first header or a professional title.
 """
 
     try:
