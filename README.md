@@ -10,7 +10,7 @@ https://ai-proposal-writer-self.vercel.app/
 ![Homepage](assets/homepage.png)
 
 ### Generated Proposal
-![Generated Proposal](assets/generated-proposal.png)
+![Generated Proposal](assets/proposal.png)
 
 ## Features
 - AI proposal generation
