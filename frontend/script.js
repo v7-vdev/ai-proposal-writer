@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000/generate-proposal';
+const API_URL = 'https://ai-proposal-writer-api.onrender.com/generate-proposal';
 
 // DOM Elements
 const form = document.getElementById('proposal-form');
@@ -39,21 +39,39 @@ form.addEventListener('submit', async (e) => {
     copyBtn.disabled = true;
     downloadBtn.disabled = true;
 
+    // Timeout controller (30 seconds)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+
     try {
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            signal: controller.signal
         });
 
+        clearTimeout(timeoutId);
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.detail || 'Failed to generate proposal');
+            let errorDetail = 'Failed to generate proposal';
+            try {
+                const errorData = await response.json();
+                errorDetail = errorData.detail || errorDetail;
+            } catch (e) {
+                errorDetail = `Server Error: ${response.status} ${response.statusText}`;
+            }
+            throw new Error(errorDetail);
         }
 
         const result = await response.json();
+        
+        if (!result || !result.proposal) {
+            throw new Error('Received an invalid response from the server.');
+        }
+
         rawProposalText = result.proposal;
         
         // Render markdown to HTML
@@ -65,7 +83,13 @@ form.addEventListener('submit', async (e) => {
         downloadBtn.disabled = false;
 
     } catch (error) {
-        errorMessage.textContent = error.message;
+        if (error.name === 'AbortError') {
+            errorMessage.textContent = 'Request timed out. The server took too long to respond. Please try again.';
+        } else if (error.message.includes('Failed to fetch')) {
+            errorMessage.textContent = 'Network error. Please check your internet connection or ensure the backend is running.';
+        } else {
+            errorMessage.textContent = error.message;
+        }
         errorMessage.classList.remove('hidden');
         emptyState.classList.remove('hidden');
     } finally {
