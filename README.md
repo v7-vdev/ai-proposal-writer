@@ -6,8 +6,11 @@ Generate professional client proposals in seconds using AI.
 https://ai-proposal-writer-self.vercel.app/
 
 ## Screenshots
-[homepage screenshot]
-[generated proposal screenshot]
+### Homepage
+![Homepage](assets/homepage.png)
+
+### Generated Proposal
+![Generated Proposal](assets/generated-proposal.png)
 
 ## Features
 - AI proposal generation
