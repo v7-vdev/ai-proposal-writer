@@ -121,9 +121,9 @@ form.addEventListener('submit', async (e) => {
     downloadBtn.disabled = true;
     pdfBtn.disabled = true;
 
-    // Timeout controller (30 seconds)
+    // Timeout controller (90 seconds to allow Render backend cold starts)
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    const timeoutId = setTimeout(() => controller.abort(), 90000);
 
     try {
         const url = currentMode === 'proposal' ? API_URL : SCOPE_API_URL;
