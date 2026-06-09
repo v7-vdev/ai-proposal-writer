@@ -82,6 +82,38 @@ h2 {
     border-bottom: 1px solid var(--border-color);
 }
 
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--text-main);
+    background-color: var(--bg-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+}
+
 /* Form Styles */
 .form-group {
     margin-bottom: 1.25rem;
@@ -104,7 +136,7 @@ label {
     color: var(--text-main);
 }
 
-input, textarea {
+input, textarea, select {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--border-color);
@@ -112,9 +144,10 @@ input, textarea {
     font-family: inherit;
     font-size: 0.875rem;
     transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: white;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
@@ -156,6 +189,17 @@ textarea {
     background-color: var(--primary-hover);
 }
 
+.secondary-btn {
+    background-color: #eff6ff;
+    color: var(--primary-color);
+    border: 1px solid #bfdbfe;
+}
+
+.secondary-btn:hover:not(:disabled) {
+    background-color: #dbeafe;
+    border-color: var(--primary-color);
+}
+
 .icon-btn {
     background-color: transparent;
     color: var(--text-muted);
@@ -166,6 +210,130 @@ textarea {
 .icon-btn:hover:not(:disabled) {
     background-color: var(--bg-color);
     color: var(--text-main);
+}
+
+.help-text {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* PDF Template Styles */
+.pdf-template {
+    background-color: white;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+.pdf-page {
+    padding: 60px;
+    min-height: 1000px; /* Force some height for visual consistency */
+    display: flex;
+    flex-direction: column;
+}
+
+.cover-page {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pdf-header {
+    margin-bottom: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pdf-logo {
+    max-height: 80px;
+    margin-bottom: 20px;
+}
+
+.pdf-header h2 {
+    color: var(--primary-color);
+    letter-spacing: 0.1em;
+    border: none;
+    margin: 0;
+}
+
+.cover-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cover-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--text-main);
+}
+
+.cover-meta {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.cover-meta p {
+    margin-bottom: 10px;
+}
+
+.cover-footer {
+    margin-top: 80px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    width: 100%;
+}
+
+.pdf-body {
+    padding-top: 40px;
+}
+
+.pdf-body h1 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    page-break-after: avoid;
+}
+
+.pdf-body h2 {
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    page-break-after: avoid;
+}
+
+.pdf-body h3 {
+    font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.pdf-body p {
+    margin-bottom: 15px;
+}
+
+.pdf-body ul, .pdf-body ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.pdf-body li {
+    margin-bottom: 5px;
+}
+
+/* Force page breaks in PDF */
+.pdf-page {
+    page-break-after: always;
 }
 
 /* Output Section */
