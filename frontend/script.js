@@ -1,9 +1,6 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import Table from '@tiptap/extension-table';
-import TableRow from '@tiptap/extension-table-row';
-import TableCell from '@tiptap/extension-table-cell';
-import TableHeader from '@tiptap/extension-table-header';
+import { Table, TableRow, TableCell, TableHeader } from '@tiptap/extension-table';
 
 const API_URL = 'https://ai-proposal-writer-api.onrender.com/generate-proposal';
 const SCOPE_API_URL = 'https://ai-proposal-writer-api.onrender.com/generate-scope';
