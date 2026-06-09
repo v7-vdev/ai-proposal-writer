@@ -158,7 +158,7 @@ form.addEventListener('submit', async (e) => {
         }
 
         // Render markdown to HTML and inject into TipTap
-        const htmlContent = marked.parse(rawProposalText);
+        const htmlContent = window.marked.parse(rawProposalText);
         editor.commands.setContent(htmlContent);
         
         editorContainer.classList.remove('hidden');
