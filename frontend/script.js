@@ -1,5 +1,48 @@
+import { Editor } from '@tiptap/core';
+import StarterKit from '@tiptap/starter-kit';
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+
 const API_URL = 'https://ai-proposal-writer-api.onrender.com/generate-proposal';
 const SCOPE_API_URL = 'https://ai-proposal-writer-api.onrender.com/generate-scope';
+
+// TipTap Editor Initialization
+let editor = null;
+
+function initEditor() {
+    const editorElement = document.querySelector('#proposal-output');
+    if (!editorElement) return;
+
+    editor = new Editor({
+        element: editorElement,
+        extensions: [
+            StarterKit,
+            Table.configure({
+                resizable: true,
+            }),
+            TableRow,
+            TableHeader,
+            TableCell,
+        ],
+        content: '',
+    });
+
+    // Toolbar Listeners
+    document.querySelectorAll('.toolbar-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            if (action === 'bold') editor.chain().focus().toggleBold().run();
+            if (action === 'italic') editor.chain().focus().toggleItalic().run();
+            if (action === 'heading1') editor.chain().focus().toggleHeading({ level: 1 }).run();
+            if (action === 'heading2') editor.chain().focus().toggleHeading({ level: 2 }).run();
+            if (action === 'bulletList') editor.chain().focus().toggleBulletList().run();
+            if (action === 'orderedList') editor.chain().focus().toggleOrderedList().run();
+            if (action === 'table') editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+        });
+    });
+}
 
 // DOM Elements
 const tabs = document.querySelectorAll('.tab-btn');
@@ -15,7 +58,7 @@ const spinner = document.querySelector('.spinner');
 const errorMessage = document.getElementById('error-message');
 
 const emptyState = document.getElementById('empty-state');
-const proposalOutput = document.getElementById('proposal-output');
+const editorContainer = document.getElementById('editor-container');
 const copyBtn = document.getElementById('copy-btn');
 const downloadBtn = document.getElementById('download-btn');
 const pdfBtn = document.getElementById('pdf-btn');
@@ -27,35 +70,8 @@ let rawProposalText = '';
 let logoBase64 = '';
 let currentMode = 'proposal'; // 'proposal' or 'scope'
 
-// Tab Switching
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentMode = tab.dataset.tab;
-
-        // Update UI based on mode
-        if (currentMode === 'scope') {
-            formTitle.textContent = 'Scope Details';
-            outputTitle.textContent = 'Generated Technical Scope';
-            clientNameGroup.classList.add('hidden');
-            proposalMetaRow.classList.add('hidden');
-            document.getElementById('client_name').required = false;
-            document.getElementById('budget').required = false;
-            document.getElementById('timeline').required = false;
-            btnText.textContent = 'Generate Scope';
-        } else {
-            formTitle.textContent = 'Project Details';
-            outputTitle.textContent = 'Generated Proposal';
-            clientNameGroup.classList.remove('hidden');
-            proposalMetaRow.classList.remove('hidden');
-            document.getElementById('client_name').required = true;
-            document.getElementById('budget').required = true;
-            document.getElementById('timeline').required = true;
-            btnText.textContent = 'Generate Proposal';
-        }
-    });
-});
+// Initialize on Load
+initEditor();
 
 // Handle Logo Upload
 logoInput.addEventListener('change', (e) => {
@@ -98,7 +114,7 @@ form.addEventListener('submit', async (e) => {
     setLoadingState(true);
     errorMessage.classList.add('hidden');
     emptyState.classList.add('hidden');
-    proposalOutput.classList.add('hidden');
+    editorContainer.classList.add('hidden');
     
     // Disable actions
     copyBtn.disabled = true;
@@ -141,9 +157,11 @@ form.addEventListener('submit', async (e) => {
             throw new Error('Received an invalid response from the server.');
         }
 
-        // Render markdown to HTML
-        proposalOutput.innerHTML = marked.parse(rawProposalText);
-        proposalOutput.classList.remove('hidden');
+        // Render markdown to HTML and inject into TipTap
+        const htmlContent = marked.parse(rawProposalText);
+        editor.commands.setContent(htmlContent);
+        
+        editorContainer.classList.remove('hidden');
 
         // Enable actions
         copyBtn.disabled = false;
@@ -219,10 +237,10 @@ downloadBtn.addEventListener('click', () => {
 
 // PDF functionality
 pdfBtn.addEventListener('click', async () => {
-    if (!rawProposalText) return;
+    if (!editor) return;
 
     const projectName = document.getElementById('project_name').value || 'Project';
-    const clientName = document.getElementById('client_name').value || 'Client';
+    const clientName = document.getElementById('client_name').value || '';
     const date = new Date().toLocaleDateString('en-US', { 
         year: 'numeric', 
         month: 'long', 
@@ -247,7 +265,8 @@ pdfBtn.addEventListener('click', async () => {
     }
     
     const bodyContent = document.getElementById('pdf-body-content');
-    bodyContent.innerHTML = marked.parse(rawProposalText);
+    // Get edited content from TipTap
+    bodyContent.innerHTML = editor.getHTML();
 
     // PDF Options
     const opt = {

@@ -1,5 +1,10 @@
 # AI Proposal Writer
 
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![JavaScript](https://img.shields.io/badge/JavaScript-Frontend-yellow)
+![License](https://img.shields.io/badge/License-MIT-success)
+
 Generate highly professional, tailored client proposals and technical scopes in seconds using AI.
 
 ## Overview

@@ -396,6 +396,123 @@ textarea {
     padding-left: 1.5rem;
 }
 
+/* Editor Styles */
+.editor-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.toolbar-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-main);
+    transition: all 0.2s;
+}
+
+.toolbar-btn:hover {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+
+.toolbar-btn.active {
+    background-color: #eff6ff;
+    color: var(--primary-color);
+    border-color: #bfdbfe;
+}
+
+.proposal-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background-color: white;
+}
+
+/* TipTap Specific Content Styles */
+.ProseMirror {
+    outline: none;
+    min-height: 400px;
+}
+
+.ProseMirror h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.ProseMirror h2 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.ProseMirror p {
+    margin-bottom: 0.75rem;
+}
+
+.ProseMirror ul, .ProseMirror ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.ProseMirror table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.ProseMirror td, .ProseMirror th {
+    min-width: 1em;
+    border: 1px solid var(--border-color);
+    padding: 3px 5px;
+    vertical-align: top;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.ProseMirror th {
+    font-weight: bold;
+    text-align: left;
+    background-color: var(--bg-color);
+}
+
+.ProseMirror .selectedCell:after {
+    z-index: 2;
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: rgba(200, 200, 255, 0.4);
+    pointer-events: none;
+}
+
+.ProseMirror .column-resize-handle {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    bottom: -2px;
+    width: 4px;
+    background-color: #adf;
+    pointer-events: none;
+}
+
 /* Utilities */
 .hidden {
     display: none !important;

@@ -154,6 +154,20 @@
     <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="script.js"></script>
+    
+    <!-- TipTap Editor -->
+    <script type="importmap">
+    {
+      "imports": {
+        "@tiptap/core": "https://esm.sh/@tiptap/core",
+        "@tiptap/starter-kit": "https://esm.sh/@tiptap/starter-kit",
+        "@tiptap/extension-table": "https://esm.sh/@tiptap/extension-table",
+        "@tiptap/extension-table-row": "https://esm.sh/@tiptap/extension-table-row",
+        "@tiptap/extension-table-cell": "https://esm.sh/@tiptap/extension-table-cell",
+        "@tiptap/extension-table-header": "https://esm.sh/@tiptap/extension-table-header"
+      }
+    }
+    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
