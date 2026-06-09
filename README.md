@@ -21,7 +21,7 @@ Writing professional client proposals is tedious, time-consuming, and often dela
 *(Placeholder for Screenshots)*
 - **Dashboard & Form:** `![Dashboard](assets/homepage.png)`
 - **Generated Output:** `![Output](assets/proposal.png)`
-- **PDF Export Example:** `![PDF Export](assets/pdf-example.gif)`
+- **PDF Export Example:** `![PDF Export](assets/pdf.png)`
 
 ## Live Demo
 
